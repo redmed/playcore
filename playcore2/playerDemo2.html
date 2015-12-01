@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="css/index.css" type="text/css" media="all"/>
+<title>天籁之芯2.0 演示页</title>
+<!--<script type="text/javascript" src="../firebug-lite/build/firebug-lite.js"></script>-->
+</head>
+<body>
+<div class="container" id="container">
+</div>
+<div class="bor" style="display:none;">
+    播放器内核<a href="http://fe.baidu.com/doc/qiaogang/playcore.text" target="_blank" title="api手册">API手册</a>。组件<a href="download.html" target="_blank">下载</a>
+</div>
+<div>
+    <h2>天籁之芯2.0 </h2>
+    <h3>使用说明：</h3>
+    <p>
+        播放器内核需要先进行初始化init()，在加载播放器内核后，才可以调用播放内核的其他接口。<br/>
+        否则会抛出异常。
+    </p>
+    <p>
+        建议在window.onload或者DOMContentLoaded事件后调用init()方法。
+    </p>
+</div>
+<div class="bor">
+<h3>播放器控件</h3>
+
+    <a href="javascript:{};" onclick="init();return false;" >初始化</a> <label id="ready" class="show">请先初始化！</label>
+    <br/>
+    初始化成功的内核：<input id="initok" value="" class="show" style="width:500px;"/><br/>
+    初始化失败的内核：<input id="initfail" value="" class="show" style="width:500px;"/><br/>
+    <a href="javascript:{};" onclick="load();return false;" >载入音频</a>:
+    <select id="url" class="mp3link">
+        <option value="other">自定义url</option>
+        <option value="resouces/第七年.mp3" selected>resouces/第七年.mp3</option>
+        <option value="../resouces/双截棍.48k.mp4" selected>resouces/双截棍.48k.mp4</option>
+    </select>
+    <br/>
+    自定义url: <input id="otherurl" class="mp3link" type="text" value="http://rm.sina.com.cn/wm/VZ2009012013332510396VK/music/MUSIC0901201333303966.mp3" onfocus="fcs(this);"/><br/>
+    <a href="javascript:{};" onclick="play();return false;" >播放</a>|
+    从<input class="pos" value="0" id="startpos" type="text" onfocus="fcs(this);"/>
+    秒开始 <a href="javascript:{};" onclick="startwith();return false;">播放</a><br/>
+    <a href="javascript:{};" onclick="reset();return false;">reset</a><br/>
+    <a href="javascript:{};" onclick="loadAndPlay();return false;">加载&播放</a><br/>
+    <a href="javascript:{};" onclick="pause();return false;" >暂停</a>
+    |<a href="javascript:{};" onclick="stop();return false;" >停止</a>
+</div>
+<div class="bor">
+    <h3>音量控件</h3>
+    <a href="javascript:{};" onclick="mute(true);return false;" >静音</a>|
+    <a href="javascript:{};" onclick="mute(false);return false;" >取消静音</a><br/>
+    <input id="vol" value="50" type="text" class="pos" onfocus="fcs(this);"/> <a href="javascript:{};" onclick="setvol();return false;" >设置音量</a>(0-100)<br/>
+</div>
+<div class="bor status">
+<h3>播放状态信息：</h3>
+播放器状态：<input id="status" type="text" value="未初始化" /><br/>
+加载进度：<input class="pos" id="loaded" type="text" value="0" />%<br/>
+当前时间：<input id="curpositon" type="text" value="0"/>毫秒(ms) | <input id="curpositon2" type="text" value="00:00"/><br/>
+总时长：<input id="total" type="text" value="0"/>毫秒(ms) | <input id="total2" type="text" value="00:00"/><br/>
+音量：<input id="volume" type="text" value="50"/><br/>
+静音：<input id="ismute" type="text" value="off"/>
+</div>
+<div class="bor" style="display:none;">
+    <h3>状态改变回调函数——setStateChangeCallback</h3>
+    <em>player.setEventListener(function(event){</em><br/>
+    <p class="comment">
+    //每当播放器状态改变时，会回调用函数。<br/>
+    //并传入当前播放状态(new)和前一个播放状态(prev)。<br/>
+    //您可以添加自定义的方法，以便根据状态的改变来处理您的逻辑。<br/>
+    //使用log()方法可以将日志信息输出到下面的“历史操作”里。
+    </p>
+    <textarea id="code">log(["当前状态："+newState , "  前一个状态："+prevState]);</textarea><br/>
+    <em>});</em>
+    <br/>
+    <input id="runcode" style="width:200px;" type="button" onclick="addCallback('code')" value="初始化(init)后可调用" disabled="true"/>
+</div>
+
+<div class="bor">
+    <h3>历史操作</h3>
+    <a href="javascript:{};" onclick="clslog();return false;">清除记录</a>
+    <div id="log_container" class="log">
+    <ol id="log">
+    </ol>
+    </div>
+</div>
+<!--
+-->
+<script src="js/common.js" type="text/javascript" ></script>
+<script src="js/playcore2.js" type="text/javascript" ></script>
+<!--<script src="js/baselogic.js" type="text/javascript" ></script>-->
+<script src="js/funs2.0.js" type="text/javascript" ></script>
+</body>
+</html>
